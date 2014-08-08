@@ -19,3 +19,4 @@ pitmon requires the following dependencies:
 * [CyberQInterface](https://github.com/thebrilliantidea/CyberQInterface)
 * Django (python-django Debian package)
 * Matplotlib (python-matplotlib Debian package)
+* Gunicorn (gunicorn Debian package)
