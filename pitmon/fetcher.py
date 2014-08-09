@@ -24,12 +24,15 @@ class Fetcher(threading.Thread):
         else:
             readings = []
 
+        banner = 0
         while True:
+            if banner == 0:
+                print "Time     , Output , Cook           , Food1          , Food2          , Food3"
+            banner += 2
+            if banner == 20:
+                banner = 0
+
             result = cyberq.getAll()
-            print "Output percent:", result.OUTPUT_PERCENT
-            print "Output percent:", result['OUTPUT_PERCENT']
-            print "Cook temp:", float(result.COOK.COOK_TEMP)/10
-            print "Food1 temp:", float(result.FOOD1.FOOD1_TEMP)/10
 
             probes = ['COOK', 'FOOD1', 'FOOD2', 'FOOD3']
             temps = ['TEMP', 'SET']
@@ -51,5 +54,12 @@ class Fetcher(threading.Thread):
             statefile = open('/tmp/pitmon.json', 'w')
             json.dump(readings, statefile)
             statefile.close()
+
+            print "%s , %6d , %5.1f %8s , %5.1f %8s , %5.1f %8s , %5d %8s" % (
+                  reading['TIME'], reading['OUTPUT_PERCENT'],
+                  reading['COOK_TEMP'], reading['COOK_STATUS'],
+                  reading['FOOD1_TEMP'], reading['FOOD1_STATUS'],
+                  reading['FOOD2_TEMP'], reading['FOOD2_STATUS'],
+                  reading['FOOD3_TEMP'], reading['FOOD3_STATUS'])
 
             time.sleep(3.0)
