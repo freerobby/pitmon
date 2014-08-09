@@ -27,7 +27,10 @@ def plot(request):
 
     idx = 0
     tick = 0
-    intvl = len(readings)/10
+    if (len(readings) < 11):
+        intvl = len(readings)
+    else:
+        intvl = len(readings)/10
     for reading in readings:
         x.append(idx)
         y1.append(reading['COOK_TEMP'])

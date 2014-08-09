@@ -10,7 +10,8 @@ class Fetcher(threading.Thread):
 
     def run(self):
 
-        cyberq = CyberQInterface("127.0.0.1:8000/static")
+        #cyberq = CyberQInterface("127.0.0.1:8000/static")
+        cyberq = CyberQInterface("192.168.142.155")
 
         # If file exists, try to load it. If it doesn't or
         # load fails, start a new file
@@ -41,7 +42,10 @@ class Fetcher(threading.Thread):
             for probe in probes:
                 for temp in temps:
                     key = '%s_%s' % (probe, temp)
-                    reading[key] = float(result[probe][key])/10
+                    if result[probe][key] == 'OPEN':
+                        reading[key] = 0.0
+                    else:
+                        reading[key] = float(result[probe][key])/10
                 key = '%s_STATUS' % probe
                 reading[key] = cyberq.statusLookup(result[probe][key])
             reading['OUTPUT_PERCENT'] = int(result['OUTPUT_PERCENT'])
@@ -55,7 +59,7 @@ class Fetcher(threading.Thread):
             json.dump(readings, statefile)
             statefile.close()
 
-            print "%s , %6d , %5.1f %8s , %5.1f %8s , %5.1f %8s , %5d %8s" % (
+            print "%s , %6d , %5.1f %8s , %5.1f %8s , %5.1f %8s , %5.1f %8s" % (
                   reading['TIME'], reading['OUTPUT_PERCENT'],
                   reading['COOK_TEMP'], reading['COOK_STATUS'],
                   reading['FOOD1_TEMP'], reading['FOOD1_STATUS'],
