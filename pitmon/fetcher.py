@@ -42,6 +42,10 @@ class Fetcher(threading.Thread):
                 key = '%s_STATUS' % probe
                 reading[key] = cyberq.statusLookup(result[probe][key])
             reading['OUTPUT_PERCENT'] = int(result['OUTPUT_PERCENT'])
+            epoch = time.time()
+            reading['TIMESTAMP'] = int(epoch)
+            reading['DATE'] = time.strftime("%Y-%m-%d", time.localtime())
+            reading['TIME'] = time.strftime("%H:%M:%S", time.localtime())
             readings.append(reading)
 
             statefile = open('/tmp/pitmon.json', 'w')
