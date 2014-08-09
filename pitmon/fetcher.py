@@ -56,7 +56,7 @@ class Fetcher(threading.Thread):
             readings.append(reading)
 
             statefile = open('/tmp/pitmon.json', 'w')
-            json.dump(readings, statefile)
+            json.dump(readings, statefile, indent=4)
             statefile.close()
 
             print "%s , %6d , %5.1f %8s , %5.1f %8s , %5.1f %8s , %5.1f %8s" % (
