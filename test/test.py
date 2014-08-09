@@ -13,14 +13,17 @@
 
 from cyberqinterface.cyberqinterface import CyberQInterface
 
+cyberq = CyberQInterface("127.0.0.1:8000/static")
+
 print "== status.xml =="
-result = CyberQInterface("127.0.0.1:8000/static").getStatus()
+result = cyberq.getStatus()
 print "Output percent:", result.OUTPUT_PERCENT
 print "Cook temp:", float(result.COOK_TEMP)/10
 print "Food1 temp:", float(result.FOOD1_TEMP)/10
 
 print "\n== all.xml =="
-result = CyberQInterface("127.0.0.1:8000/static").getAll()
+result = cyberq.getAll()
 print "Output percent:", result.OUTPUT_PERCENT
 print "Cook temp:", float(result.COOK.COOK_TEMP)/10
 print "Food1 temp:", float(result.FOOD1.FOOD1_TEMP)/10
+print "Food1 status:", cyberq.statusLookup(result.FOOD1.FOOD1_STATUS)
