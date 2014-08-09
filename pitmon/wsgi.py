@@ -32,6 +32,7 @@ application = get_wsgi_application()
 # from helloworld.wsgi import HelloWorldApplication
 # application = HelloWorldApplication(application)
 
+# Start the fetcher thread, which communicates with the CyberQ
 fthread = fetcher.Fetcher()
 fthread.setDaemon(True)
 fthread.start()
