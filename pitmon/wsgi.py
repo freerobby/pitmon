@@ -14,6 +14,7 @@ framework.
 
 """
 import os
+import fetcher
 
 # We defer to a DJANGO_SETTINGS_MODULE already in the environment. This breaks
 # if running multiple sites in the same mod_wsgi process. To fix this, use
@@ -30,3 +31,7 @@ application = get_wsgi_application()
 # Apply WSGI middleware here.
 # from helloworld.wsgi import HelloWorldApplication
 # application = HelloWorldApplication(application)
+
+fthread = fetcher.Fetcher()
+fthread.setDaemon(True)
+fthread.start()
