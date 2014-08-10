@@ -2,6 +2,7 @@ import json
 import matplotlib.pyplot as plt
 from django.http import HttpResponse
 from django.template import loader, Context
+import config
 
 
 def home(request):
@@ -14,7 +15,7 @@ def home(request):
 def plot(request):
     response = HttpResponse(content_type='image/png')
 
-    statefile = open('/tmp/pitmon.json')
+    statefile = open(config.output)
     readings = json.load(statefile)
     x = []
     y1 = []

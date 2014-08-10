@@ -2,8 +2,9 @@
 
 import json
 import matplotlib.pyplot as plt
+import config
 
-statefile = open('/tmp/pitmon.json')
+statefile = open(config.output)
 readings = json.load(statefile)
 x = []
 y1 = []

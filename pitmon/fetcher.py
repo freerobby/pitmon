@@ -3,6 +3,7 @@ import time
 import json
 import os.path
 from cyberqinterface.cyberqinterface import CyberQInterface
+import config
 
 
 # TODO: param url and json file
@@ -11,12 +12,12 @@ class Fetcher(threading.Thread):
     def run(self):
 
         #cyberq = CyberQInterface("127.0.0.1:8000/static")
-        cyberq = CyberQInterface("192.168.142.155")
+        cyberq = CyberQInterface(config.url)
 
         # If file exists, try to load it. If it doesn't or
         # load fails, start a new file
-        if (os.path.isfile('/tmp/pitmon.json')):
-            statefile = open('/tmp/pitmon.json')
+        if (os.path.isfile(config.output)):
+            statefile = open(config.output)
             try:
                 readings = json.load(statefile)
             except:
@@ -55,7 +56,7 @@ class Fetcher(threading.Thread):
             reading['TIME'] = time.strftime("%H:%M:%S", time.localtime())
             readings.append(reading)
 
-            statefile = open('/tmp/pitmon.json', 'w')
+            statefile = open(config.output, 'w')
             json.dump(readings, statefile, indent=4)
             statefile.close()
 
@@ -66,4 +67,4 @@ class Fetcher(threading.Thread):
                   reading['FOOD2_TEMP'], reading['FOOD2_STATUS'],
                   reading['FOOD3_TEMP'], reading['FOOD3_STATUS'])
 
-            time.sleep(3.0)
+            time.sleep(config.refresh)
