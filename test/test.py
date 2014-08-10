@@ -12,9 +12,8 @@
 # $ PYTHONPATH=. python test/test.py
 
 from cyberqinterface.cyberqinterface import CyberQInterface
-import config
 
-cyberq = CyberQInterface(config.url)
+cyberq = CyberQInterface('192.168.142.155')
 
 print "== status.xml =="
 result = cyberq.getStatus()
