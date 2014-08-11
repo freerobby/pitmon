@@ -24,6 +24,8 @@ def plot(request):
     y3 = []
     y4 = []
     y5 = []
+    y6 = []
+    y7 = []
     l = []
     t = []
 
@@ -40,13 +42,16 @@ def plot(request):
         y3.append(reading['FOOD2_TEMP'])
         y4.append(reading['FOOD3_TEMP'])
         y5.append(reading['OUTPUT_PERCENT'])
+        y6.append(reading['COOK_SET'])
+        y7.append(reading['FOOD1_SET'])
         if idx % intvl == 0:
             t.append(idx)
             l.append(reading['TIME'][:5])
             tick += 1
         idx += 1
 
-    plt.plot(x, y1, "rs", x, y2, "b^", x, y3, "gp", x, y4, "mD", x, y5, "k+--")
+    plt.plot(x, y1, "rs", x, y2, "b^", x, y3, "gp", x, y4, "mD", x, y5, "k+--",
+             x, y6, "r+--", x, y7, "b+--")
     plt.ylabel('Temperature F')
     plt.xticks(t, l)
     plt.gcf().set_size_inches(12, 6)
