@@ -5,7 +5,7 @@ pitmon is a monitor application for the
 [BBQ Guru CyberQ WIFI controller](http://www.thebbqguru.com).
 pitmon was written in Python as a WSGI app using the Django framework.
 
-![https://raw.githubusercontent.com/scotte/pitmon/master/static/pitmon.png]
+![pitmon.png](https://raw.githubusercontent.com/scotte/pitmon/master/static/pitmon.png)
 
 Dependencies
 ============
