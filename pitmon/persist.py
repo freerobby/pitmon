@@ -3,12 +3,10 @@ import time
 import json
 import os.path
 import config
+import threads
 
 
 class Persist(threading.Thread):
-
-    # Reference to poller so we can fetch the last reading
-    poller = None
 
     def run(self):
 
@@ -25,8 +23,8 @@ class Persist(threading.Thread):
             else:
                 readings = []
 
-            reading = self.poller.getlast()
-            if (reading is None):
+            reading = threads.getlast()
+            if (reading is None or 'COOK_TEMP' not in reading):
                 print "Warning, no valid reading from poller"
             else:
                 readings.append(reading)
@@ -36,6 +34,3 @@ class Persist(threading.Thread):
             statefile.close()
 
             time.sleep(config.persist)
-
-    def setpoller(self, poller):
-        self.poller = poller

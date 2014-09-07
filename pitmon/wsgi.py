@@ -14,8 +14,7 @@ framework.
 
 """
 import os
-import persist
-import poller
+import threads
 
 # We defer to a DJANGO_SETTINGS_MODULE already in the environment. This breaks
 # if running multiple sites in the same mod_wsgi process. To fix this, use
@@ -33,13 +32,4 @@ application = get_wsgi_application()
 # from helloworld.wsgi import HelloWorldApplication
 # application = HelloWorldApplication(application)
 
-# Start the poller thread, which communicates with the CyberQ
-pollthread = poller.Poller()
-pollthread.setDaemon(True)
-pollthread.start()
-
-# Start the persist thread, which saves graph points
-persistthread = persist.Persist()
-persistthread.setDaemon(True)
-persistthread.setpoller(pollthread)
-persistthread.start()
+threads.start()

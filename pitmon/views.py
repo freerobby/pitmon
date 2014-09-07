@@ -36,6 +36,7 @@ def plot(request):
     else:
         intvl = len(readings)/10
     for reading in readings:
+        # ignore bad data
         if 'COOK_TEMP' in reading:
             x.append(idx)
             y1.append(reading['COOK_TEMP'])
