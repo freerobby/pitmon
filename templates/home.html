@@ -9,7 +9,7 @@
     <script src="/static/js/bootstrap.min.js"></script>
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/css/style.css" rel="stylesheet">
-    <meta http-equiv="refresh" content="5"> <!-- TODO: temporary -->
+    <!-- <meta http-equiv="refresh" content="5"> <!-- TODO: temporary -->
 </head>
 
 <body>
@@ -35,11 +35,87 @@
     </div>
 </div>
 
-<div class="container container-left">
+<div class="container-fluid container-left">
     <div class="row">
         <div class="col-md-3">
-            <div class="well">
-                TBD
+            <div class="container-fluid">
+                <div class="well">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <strong>Pit</strong>
+                        </div>
+                        <div class="col-md-8">
+                            Status: {{ reading.COOK_STATUS }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            Temp: {{ reading.COOK_TEMP }}
+                        </div>
+                        <div class="col-md-7">
+                            Set: {{ reading.COOK_SET }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            Fan output: {{ reading.OUTPUT_PERCENT }}%
+                        </div>
+                    </div>
+                </div>
+                <div class="well">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <strong>Food 1</strong>
+                        </div>
+                        <div class="col-md-8">
+                            Status: {{ reading.FOOD1_STATUS }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            Temp: {{ reading.FOOD1_TEMP }}
+                        </div>
+                        <div class="col-md-7">
+                            Set: {{ reading.FOOD1_SET }}
+                        </div>
+                    </div>
+                </div>
+                <div class="well">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <strong>Food 2</strong>
+                        </div>
+                        <div class="col-md-8">
+                            Status: {{ reading.FOOD2_STATUS }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            Temp: {{ reading.FOOD2_TEMP }}
+                        </div>
+                        <div class="col-md-7">
+                            Set: {{ reading.FOOD2_SET }}
+                        </div>
+                    </div>
+                </div>
+                <div class="well">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <strong>Food 3</strong>
+                        </div>
+                        <div class="col-md-8">
+                            Status: {{ reading.FOOD3_STATUS }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            Temp: {{ reading.FOOD3_TEMP }}
+                        </div>
+                        <div class="col-md-7">
+                            Set: {{ reading.FOOD3_SET }}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-md-9">

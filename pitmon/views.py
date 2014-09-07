@@ -3,11 +3,14 @@ import matplotlib.pyplot as plt
 from django.http import HttpResponse
 from django.template import loader, Context
 import config
+import threads
 
 
 def home(request):
+    reading = threads.getlast()
     t = loader.get_template('home.html')
     c = Context({
+        'reading': reading
     })
     return HttpResponse(t.render(c))
 
@@ -56,7 +59,7 @@ def plot(request):
              x, y6, "r+--", x, y7, "b+--")
     plt.ylabel('Temperature F')
     plt.xticks(t, l)
-    plt.gcf().set_size_inches(8, 4.5)
+    plt.gcf().set_size_inches(9, 4.5)
     plt.savefig(response, dpi=100)
     plt.close()
 

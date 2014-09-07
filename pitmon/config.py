@@ -2,4 +2,4 @@
 url = '127.0.0.1:8000/static'
 output = '/tmp/pitmon.json'
 poll = 1.0      # Frequency to poll cyberq
-persist = 5.0  # Frequency for persistence and graph points
+persist = 60.0  # Frequency for persistence and graph points
