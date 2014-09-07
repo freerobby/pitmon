@@ -11,7 +11,6 @@ class Fetcher(threading.Thread):
 
     def run(self):
 
-        #cyberq = CyberQInterface("127.0.0.1:8000/static")
         cyberq = CyberQInterface(config.url)
 
         # If file exists, try to load it. If it doesn't or

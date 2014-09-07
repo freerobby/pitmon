@@ -54,7 +54,7 @@ def plot(request):
              x, y6, "r+--", x, y7, "b+--")
     plt.ylabel('Temperature F')
     plt.xticks(t, l)
-    plt.gcf().set_size_inches(12, 6)
+    plt.gcf().set_size_inches(10, 5)
     plt.savefig(response, dpi=100)
     plt.close()
 

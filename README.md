@@ -24,3 +24,16 @@ pitmon requires the following dependencies:
 * Matplotlib (python-matplotlib Debian package)
 * Gunicorn (gunicorn Debian package)
 * lxml - needed by CyberQInterface (python-lxml Debian package)
+
+License
+=======
+
+This project is licensed under a GNU General Public License GPLv3 license.
+See the LICENSE file in the source repository and/or distribution.
+
+This project includes the following files which are the properties of their
+respective owners:
+
+* js/bootstrap.min.js - [bootstrap](http://getbootstrap.com)
+* css/bootstrap.min.css - [bootstrap](http://getbootstrap.com)
+* js/jquery.min.js - [jquery](https://jquery.com)
