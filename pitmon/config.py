@@ -1,4 +1,5 @@
-url = '192.168.142.155'
-#url = '127.0.0.1:8000/static'
+#url = '192.168.142.155'
+url = '127.0.0.1:8000/static'
 output = '/tmp/pitmon.json'
-refresh = 60.0
+poll = 1.0      # Frequency to poll cyberq
+persist = 5.0  # Frequency for persistence and graph points

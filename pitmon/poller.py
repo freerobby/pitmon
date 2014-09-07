@@ -1,29 +1,18 @@
 import threading
 import time
-import json
-import os.path
+import copy
 from cyberqinterface.cyberqinterface import CyberQInterface
 import config
 
 
 # TODO: param url and json file
-class Fetcher(threading.Thread):
+class Poller(threading.Thread):
+
+    last = dict()
 
     def run(self):
 
         cyberq = CyberQInterface(config.url)
-
-        # If file exists, try to load it. If it doesn't or
-        # load fails, start a new file
-        if (os.path.isfile(config.output)):
-            statefile = open(config.output)
-            try:
-                readings = json.load(statefile)
-            except:
-                readings = []
-            statefile.close()
-        else:
-            readings = []
 
         banner = 0
         while True:
@@ -53,11 +42,6 @@ class Fetcher(threading.Thread):
             reading['TIMESTAMP'] = int(epoch)
             reading['DATE'] = time.strftime("%Y-%m-%d", time.localtime())
             reading['TIME'] = time.strftime("%H:%M:%S", time.localtime())
-            readings.append(reading)
-
-            statefile = open(config.output, 'w')
-            json.dump(readings, statefile, indent=4)
-            statefile.close()
 
             print "%s , %6d , %5.1f %8s , %5.1f %8s , %5.1f %8s , %5.1f %8s" % (
                   reading['TIME'], reading['OUTPUT_PERCENT'],
@@ -66,4 +50,8 @@ class Fetcher(threading.Thread):
                   reading['FOOD2_TEMP'], reading['FOOD2_STATUS'],
                   reading['FOOD3_TEMP'], reading['FOOD3_STATUS'])
 
-            time.sleep(config.refresh)
+            self.last = reading
+            time.sleep(config.poll)
+
+    def getlast(self):
+        return copy.deepcopy(self.last)
