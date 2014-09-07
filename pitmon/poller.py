@@ -33,10 +33,14 @@ class Poller(threading.Thread):
                     key = '%s_%s' % (probe, temp)
                     if result[probe][key] == 'OPEN':
                         reading[key] = 0.0
+                        reading['%s_STATUS' % probe] = 'NO PROBE'
                     else:
                         reading[key] = float(result[probe][key])/10
                 key = '%s_STATUS' % probe
-                reading[key] = cyberq.statusLookup(result[probe][key])
+                if key not in reading:
+                    reading[key] = cyberq.statusLookup(result[probe][key])
+                key = '%s_NAME' % probe
+                reading[key] = result[probe][key].text
             reading['OUTPUT_PERCENT'] = int(result['OUTPUT_PERCENT'])
             epoch = time.time()
             reading['TIMESTAMP'] = int(epoch)

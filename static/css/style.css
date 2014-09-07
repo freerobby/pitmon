@@ -18,3 +18,8 @@ body {
 .container-left {
     margin: 0;
 }
+
+.col-squeeze {
+    padding-left: 5px;
+    padding-right: 5px;
+}
