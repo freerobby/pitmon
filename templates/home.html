@@ -10,6 +10,7 @@
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/css/style.css" rel="stylesheet">
     <!-- <meta http-equiv="refresh" content="5"> <!-- TODO: temporary -->
+    {% load keyconcat %}
 </head>
 
 <body>
@@ -39,83 +40,33 @@
     <div class="row">
         <div class="col-md-3 col-squeeze">
             <div class="container-fluid">
+            {% for probe in probes %}
                 <div class="well">
                     <div class="row">
                         <div class="col-md-6 col-squeeze">
-                            <strong>{{ reading.COOK_NAME }}</strong>
+                            <strong>{% get_key reading probe '_NAME' %}</strong>
                         </div>
                         <div class="col-md-6 col-squeeze">
-                            Status: <span class="{{ reading.COOK_STATUS }}">{{ reading.COOK_STATUS }}</span>
+                            Status: <span class="{% get_key reading probe '_STATUS' %}">{% get_key reading probe '_STATUS' %}</span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 col-squeeze">
-                            Temp: {{ reading.COOK_TEMP }}
+                            Temp: {% get_key reading probe '_TEMP' %}
                         </div>
                         <div class="col-md-6 col-squeeze">
-                            Set: {{ reading.COOK_SET }}
+                            Set: {% get_key reading probe '_SET' %}
                         </div>
                     </div>
+                    {% if probe == 'COOK'%}
                     <div class="row">
                         <div class="col-md-12 col-squeeze">
                             Fan output: {{ reading.OUTPUT_PERCENT }}%
                         </div>
                     </div>
+                    {% endif %}
                 </div>
-                <div class="well">
-                    <div class="row">
-                        <div class="col-md-6 col-squeeze">
-                            <strong>{{ reading.FOOD1_NAME }}</strong>
-                        </div>
-                        <div class="col-md-6 col-squeeze">
-                            Status: <span class="{{ reading.FOOD1_STATUS }}">{{ reading.FOOD1_STATUS }}</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 col-squeeze">
-                            Temp: {{ reading.FOOD1_TEMP }}
-                        </div>
-                        <div class="col-md-6 col-squeeze">
-                            Set: {{ reading.FOOD1_SET }}
-                        </div>
-                    </div>
-                </div>
-                <div class="well">
-                    <div class="row">
-                        <div class="col-md-6 col-squeeze">
-                            <strong>{{ reading.FOOD2_NAME }}</strong>
-                        </div>
-                        <div class="col-md-6 col-squeeze">
-                            Status: <span class="{{ reading.FOOD2_STATUS }}">{{ reading.FOOD2_STATUS }}</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 col-squeeze">
-                            Temp: {{ reading.FOOD2_TEMP }}
-                        </div>
-                        <div class="col-md-6 col-squeeze">
-                            Set: {{ reading.FOOD2_SET }}
-                        </div>
-                    </div>
-                </div>
-                <div class="well">
-                    <div class="row">
-                        <div class="col-md-6 col-squeeze">
-                            <strong>{{ reading.FOOD3_NAME }}</strong>
-                        </div>
-                        <div class="col-md-6 col-squeeze">
-                            Status: <span class="{{ reading.FOOD3_STATUS }}">{{ reading.FOOD3_STATUS }}</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 col-squeeze">
-                            Temp: {{ reading.FOOD3_TEMP }}
-                        </div>
-                        <div class="col-md-6 col-squeeze">
-                            Set: {{ reading.FOOD3_SET }}
-                        </div>
-                    </div>
-                </div>
+            {% endfor %}
             </div>
         </div>
         <div class="col-md-9">

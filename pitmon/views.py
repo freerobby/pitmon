@@ -10,7 +10,8 @@ def home(request):
     reading = threads.getlast()
     t = loader.get_template('home.html')
     c = Context({
-        'reading': reading
+        'reading': reading,
+        'probes': ['COOK', 'FOOD1', 'FOOD2', 'FOOD3']
     })
     return HttpResponse(t.render(c))
 
