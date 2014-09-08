@@ -41,21 +41,27 @@
         <div class="col-md-3 col-squeeze">
             <div class="container-fluid">
             {% for probe in probes %}
+                {% assign_key reading probe '_NAME' as pname %}
+                {% assign_key reading probe '_STATUS' as pstatus %}
+                {% assign_key reading probe '_TEMP' as ptemp %}
+                {% assign_key reading probe '_SET' as pset %}
                 <div class="well">
                     <div class="row">
                         <div class="col-md-6 col-squeeze">
-                            <strong>{% get_key reading probe '_NAME' %}</strong>
+                            <strong>{{ pname }}</strong>
                         </div>
                         <div class="col-md-6 col-squeeze">
-                            Status: <span class="{% get_key reading probe '_STATUS' %}">{% get_key reading probe '_STATUS' %}</span>
+                            Status: <span class="{{ pstatus }}">{{ pstatus }}</span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 col-squeeze">
-                            Temp: {% get_key reading probe '_TEMP' %}
+                            {% if pstatus != 'NO PROBE' %}
+                                Temp: {{ ptemp }}
+                            {% endif %}
                         </div>
                         <div class="col-md-6 col-squeeze">
-                            Set: {% get_key reading probe '_SET' %}
+                            Set: {{ pset }}
                         </div>
                     </div>
                     {% if probe == 'COOK'%}
