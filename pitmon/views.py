@@ -16,6 +16,9 @@ def home(request):
     return HttpResponse(t.render(c))
 
 
+def current(request):
+    return HttpResponse(json.dumps(threads.getlast()))
+
 def plot(request):
     response = HttpResponse(content_type='image/png')
 
