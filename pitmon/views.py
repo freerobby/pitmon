@@ -17,6 +17,7 @@ def current(request):
 
 
 def data(request):
+    # TODO: Ugly, still code from matplotlib that needs pruning and cleanup
     statefile = open(config.output)
     readings = json.load(statefile)
     x = []
@@ -30,6 +31,7 @@ def data(request):
     y7 = []
     l = []
     t = []
+    ts = []
 
     idx = 0
     tick = 0
@@ -48,6 +50,7 @@ def data(request):
             y5.append(reading['OUTPUT_PERCENT'])
             y6.append(reading['COOK_SET'])
             y7.append(reading['FOOD1_SET'])
+            ts.append(reading['TIMESTAMP'])
             if idx % intvl == 0:
                 t.append(idx)
                 l.append(reading['TIME'][:5])
@@ -65,5 +68,6 @@ def data(request):
     #data['food3_set'] = y1;
     data['output_percent'] = y5;
     data['food3_temp'] = y4;
+    data['timestamp'] = ts;
 
     return HttpResponse(json.dumps(data))

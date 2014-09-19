@@ -75,7 +75,7 @@ function update_plot2() {
     setTimeout(update_plot, 5000);
 }
 
-function create_plot() {
+function update_plot() {
   console.log("update_plot");
   /*These lines are all chart setup.  Pick and choose which chart features you want to utilize. */
   nv.addGraph(function() {
@@ -88,16 +88,14 @@ function create_plot() {
                   .showXAxis(true)        //Show the x-axis
     ;
 
-    chart.xAxis     //Chart x-axis settings
-        //.axisLabel('Time (ms)')
-        .tickFormat(d3.format(',r'));
-
-    chart.yAxis     //Chart y-axis settings
-        //.axisLabel('Voltage (v)')
-        .tickFormat(d3.format('.02f'));
-
-    /* Done setting the chart up? Time to render it!*/
     var myData = readData();
+
+    chart.xAxis.tickFormat(function(d) {
+        return d3.time.format('%H:%M')(new Date(d))
+    });
+
+    chart.yAxis
+        .tickFormat(d3.format('.02f'));
 
     d3.select('#plot svg')    //Select the <svg> element you want to render the chart in.
         .datum(myData)         //Populate the <svg> element with chart data...
@@ -128,13 +126,14 @@ function readData() {
             food3temp = [];
 
         for (var i = 0; i < data["cook_temp"].length; i++) {
-          cooktemp.push({x: i, y:data["cook_temp"][i]})
-          cookset.push({x: i, y:data["cook_set"][i]})
-          output.push({x: i, y:data["output_percent"][i]})
-          food1temp.push({x: i, y:data["food1_temp"][i]})
-          food1set.push({x: i, y:data["food1_set"][i]})
-          food2temp.push({x: i, y:data["food2_temp"][i]})
-          food3temp.push({x: i, y:data["food3_temp"][i]})
+            ts = data['timestamp'][i]*1000;
+            cooktemp.push({x: ts, y:data["cook_temp"][i]})
+            cookset.push({x: ts, y:data["cook_set"][i]})
+            output.push({x: ts, y:data["output_percent"][i]})
+            food1temp.push({x: ts, y:data["food1_temp"][i]})
+            food1set.push({x: ts, y:data["food1_set"][i]})
+            food2temp.push({x: ts, y:data["food2_temp"][i]})
+            food3temp.push({x: ts, y:data["food3_temp"][i]})
         }
 
         series = [
@@ -184,7 +183,6 @@ function readData() {
 
 $(document).ready(function() {
   update_data();
-  create_plot();
   update_plot();
 });
 
