@@ -73,14 +73,16 @@ function update_data() {
 }
 
 function update_plot() {
-    if (chart === null) {
-        // Chart never initialized just give up
-        return;
+    if (chart !== null) {
+        var data = readData();
+        if (data !== null) {
+            d3.select('#plot svg')
+            .datum(data)
+            .call(chart);
+        } else {
+            console.log("data null on refresh");
+        }
     }
-    var data = readData();
-    d3.select('#plot svg')
-        .datum(data)
-        .call(chart);
     setTimeout(update_plot, 15000);
 }
 
@@ -103,7 +105,7 @@ function create_plot() {
     });
 
     chart.yAxis
-        .tickFormat(d3.format('.02f'));
+        .tickFormat(d3.format('.0f'));
 
     d3.select('#plot svg')
         .datum(data)
