@@ -7,6 +7,15 @@ pitmon was written in Python as a WSGI app using the Django framework.
 
 ![pitmon.png](https://raw.githubusercontent.com/scotte/pitmon/master/static/pitmon.png)
 
+Status
+======
+Unstable! Still very much a prototype.
+
+TODO:
+* Switch from matplotlib on server side to D3 in browser
+* Add configuration - UI for settings, and persist/load on server side
+* Replace django with a super basic HTTP server, once it's all static content and JSON
+
 Dependencies
 ============
 
