@@ -1,3 +1,5 @@
+var chart = null;
+
 function update_data() {
     $.getJSON(
         "http://localhost:8000/current",
@@ -70,16 +72,22 @@ function update_data() {
     setTimeout(update_data,1000);
 }
 
-function update_plot2() {
-    $("#plot").attr("src", "/plot?ts=" + new Date().getTime());
-    setTimeout(update_plot, 5000);
+function update_plot() {
+    if (chart === null) {
+        // Chart never initialized just give up
+        return;
+    }
+    var data = readData();
+    d3.select('#plot svg')
+        .datum(data)
+        .call(chart);
+    setTimeout(update_plot, 15000);
 }
 
-function update_plot() {
-  console.log("update_plot");
+function create_plot() {
   /*These lines are all chart setup.  Pick and choose which chart features you want to utilize. */
   nv.addGraph(function() {
-    var chart = nv.models.lineChart()
+    chart = nv.models.lineChart()
                   .margin({left: 48})  //Adjust chart margins to give the x-axis some breathing room.
                   .useInteractiveGuideline(true)  //We want nice looking tooltips and a guideline!
                   .transitionDuration(350)  //how fast do you want the lines to transition?
@@ -88,7 +96,7 @@ function update_plot() {
                   .showXAxis(true)        //Show the x-axis
     ;
 
-    var myData = readData();
+    var data = readData();
 
     chart.xAxis.tickFormat(function(d) {
         return d3.time.format('%H:%M')(new Date(d))
@@ -97,9 +105,9 @@ function update_plot() {
     chart.yAxis
         .tickFormat(d3.format('.02f'));
 
-    d3.select('#plot svg')    //Select the <svg> element you want to render the chart in.
-        .datum(myData)         //Populate the <svg> element with chart data...
-        .call(chart);          //Finally, render the chart!
+    d3.select('#plot svg')
+        .datum(data)
+        .call(chart);
 
     //Update the chart when window resizes.
     nv.utils.windowResize(function() { chart.update() });
@@ -183,6 +191,7 @@ function readData() {
 
 $(document).ready(function() {
   update_data();
-  update_plot();
+  create_plot();
+  setTimeout(update_plot, 15000);
 });
 
