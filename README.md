@@ -12,7 +12,7 @@ Status
 Unstable! Still very much a prototype.
 
 TODO:
-* Switch from matplotlib on server side to D3 in browser
+* (in progress) Switch from matplotlib on server side to D3 in browser
 * Add configuration - UI for settings, and persist/load on server side
 * Replace django with a super basic HTTP server, once it's all static content and JSON
 
@@ -30,7 +30,6 @@ pitmon requires the following dependencies:
 * [CyberQInterface](https://github.com/thebrilliantidea/CyberQInterface)
     * Copy the 'cyberqinterface' directory (contains three .py files) to the root of this project
 * Django (python-django Debian package)
-* Matplotlib (python-matplotlib Debian package)
 * Gunicorn (gunicorn Debian package)
 * lxml - needed by CyberQInterface (python-lxml Debian package)
 
@@ -46,3 +45,6 @@ respective owners:
 * js/bootstrap.min.js - [bootstrap](http://getbootstrap.com)
 * css/bootstrap.min.css - [bootstrap](http://getbootstrap.com)
 * js/jquery.min.js - [jquery](https://jquery.com)
+* js/d3.v3.js - [d3](http://d3js.org)
+* js/nv.d3.js - [nvd3](http://nvd3.org)
+* css/nv.d3.css - [nvd3](http://nvd3.org)

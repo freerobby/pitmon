@@ -70,13 +70,121 @@ function update_data() {
     setTimeout(update_data,1000);
 }
 
-function update_plot() {
-    console.log("plot");
+function update_plot2() {
     $("#plot").attr("src", "/plot?ts=" + new Date().getTime());
     setTimeout(update_plot, 5000);
 }
 
+function create_plot() {
+  console.log("update_plot");
+  /*These lines are all chart setup.  Pick and choose which chart features you want to utilize. */
+  nv.addGraph(function() {
+    var chart = nv.models.lineChart()
+                  .margin({left: 48})  //Adjust chart margins to give the x-axis some breathing room.
+                  .useInteractiveGuideline(true)  //We want nice looking tooltips and a guideline!
+                  .transitionDuration(350)  //how fast do you want the lines to transition?
+                  .showLegend(true)       //Show the legend, allowing users to turn on/off line series.
+                  .showYAxis(true)        //Show the y-axis
+                  .showXAxis(true)        //Show the x-axis
+    ;
+
+    chart.xAxis     //Chart x-axis settings
+        //.axisLabel('Time (ms)')
+        .tickFormat(d3.format(',r'));
+
+    chart.yAxis     //Chart y-axis settings
+        //.axisLabel('Voltage (v)')
+        .tickFormat(d3.format('.02f'));
+
+    /* Done setting the chart up? Time to render it!*/
+    var myData = readData();
+
+    d3.select('#plot svg')    //Select the <svg> element you want to render the chart in.
+        .datum(myData)         //Populate the <svg> element with chart data...
+        .call(chart);          //Finally, render the chart!
+
+    //Update the chart when window resizes.
+    nv.utils.windowResize(function() { chart.update() });
+    return chart;
+  });
+}
+
+function readData() {
+  var series = null;
+
+  $.ajax({
+      url: "http://localhost:8000/data",
+      type: 'get',
+      dataType: 'json',
+      async: false,
+      success: function(data) {
+
+        var cooktemp = [],
+            cookset = [],
+            output = [],
+            food1temp = [],
+            food1set = [],
+            food2temp = [],
+            food3temp = [];
+
+        for (var i = 0; i < data["cook_temp"].length; i++) {
+          cooktemp.push({x: i, y:data["cook_temp"][i]})
+          cookset.push({x: i, y:data["cook_set"][i]})
+          output.push({x: i, y:data["output_percent"][i]})
+          food1temp.push({x: i, y:data["food1_temp"][i]})
+          food1set.push({x: i, y:data["food1_set"][i]})
+          food2temp.push({x: i, y:data["food2_temp"][i]})
+          food3temp.push({x: i, y:data["food3_temp"][i]})
+        }
+
+        series = [
+            {
+              values: cooktemp,
+              key: "Cook Temp",
+              color: '#ff7f0e'
+            },
+            {
+              values: cookset,
+              key: "Cook Set",
+              color: '#7777ff',
+              area: true
+            },
+            {
+              values: output,
+              key: "Output Percent",
+              color: '#000000'
+            },
+            {
+              values: food1temp,
+              key: "Food1 Temp",
+              color: '#2ca02c'
+            },
+            {
+              values: food1set,
+              key: "Food1 Set",
+              color: '#2ca02c',
+              area: true
+            },
+            {
+              values: food2temp,
+              key: "Food2 Set",
+              color: '#2ca02c'
+            },
+            {
+              values: food3temp,
+              key: "Food3 Temp",
+              color: '#2ca02c'
+            }
+          ];
+      }
+  });
+
+  return series;
+}
+
 $(document).ready(function() {
   update_data();
+  create_plot();
   update_plot();
 });
+

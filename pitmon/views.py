@@ -1,5 +1,4 @@
 import json
-import matplotlib.pyplot as plt
 from django.http import HttpResponse
 from django.template import loader, Context
 import config
@@ -17,9 +16,7 @@ def current(request):
     return HttpResponse(json.dumps(threads.getlast()))
 
 
-def plot(request):
-    response = HttpResponse(content_type='image/png')
-
+def data(request):
     statefile = open(config.output)
     readings = json.load(statefile)
     x = []
@@ -57,12 +54,16 @@ def plot(request):
                 tick += 1
             idx += 1
 
-    plt.plot(x, y1, "rs", x, y2, "b^", x, y3, "gp", x, y4, "mD", x, y5, "k+--",
-             x, y6, "r+--", x, y7, "b+--")
-    plt.ylabel('Temperature F')
-    plt.xticks(t, l)
-    plt.gcf().set_size_inches(9, 4.5)
-    plt.savefig(response, dpi=100)
-    plt.close()
+    data = dict()
+    data['cook_temp'] = y1;
+    data['cook_set'] = y6;
+    data['food1_temp'] = y2;
+    data['food1_set'] = y7;
+    data['food2_temp'] = y3;
+    #data['food2_set'] = y1;
+    data['food3_temp'] = y4;
+    #data['food3_set'] = y1;
+    data['output_percent'] = y5;
+    data['food3_temp'] = y4;
 
-    return response
+    return HttpResponse(json.dumps(data))

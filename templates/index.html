@@ -7,8 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/static/js/jquery.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/d3.v3.js"></script>
+    <script src="/static/js/nv.d3.js"></script>
     <script src="/static/js/pitmon.js"></script>
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/nv.d3.css" rel="stylesheet">
     <link href="/static/css/style.css" rel="stylesheet">
 </head>
 
@@ -137,7 +140,9 @@
         </div>
         <div class="col-md-9">
             <div class="well">
-                <img id="plot"/>
+                <div id="plot">
+                    <svg style='height:500px; width:768px;'> </svg>
+                </div>
             </div>
           </div>
     </div>
