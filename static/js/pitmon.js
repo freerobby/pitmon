@@ -1,8 +1,20 @@
-function update() {
-    $.get(
+function update_data() {
+    $.getJSON(
         "http://localhost:8000/current",
-        function(json) {
-            var data = $.parseJSON(json);
+        function(data) {
+
+            if (data["DATE"] === undefined) {
+                $("#pitmon_status").html("OFFLINE");
+                $("#pitmon_status").removeClass();
+                $("#pitmon_status").addClass("ERROR");
+                return;
+            }
+
+            $("#pitmon_status").html("ONLINE");
+            $("#pitmon_status").removeClass();
+            $("#pitmon_status").addClass("OK");
+            $("#pitmon_time").html(data["DATE"] + " " + data["TIME"]);
+
             $("#cook_name").html(data["COOK_NAME"]);
             $("#cook_status").html(data["COOK_STATUS"]);
             $("#cook_status").removeClass();
@@ -50,10 +62,21 @@ function update() {
             }
             $("#food3_set").html(data["FOOD3_SET"]);
         }
-    );
-    setTimeout(update,1000);
+    ) .fail(function() {
+        $("#pitmon_status").html("OFFLINE");
+        $("#pitmon_status").removeClass();
+        $("#pitmon_status").addClass("ERROR");
+    });
+    setTimeout(update_data,1000);
+}
+
+function update_plot() {
+    console.log("plot");
+    $("#plot").attr("src", "/plot?ts=" + new Date().getTime());
+    setTimeout(update_plot, 5000);
 }
 
 $(document).ready(function() {
-  update();
+  update_data();
+  update_plot();
 });

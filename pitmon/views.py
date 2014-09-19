@@ -8,16 +8,14 @@ import threads
 
 def home(request):
     reading = threads.getlast()
-    t = loader.get_template('home.html')
-    c = Context({
-        'reading': reading,
-        'probes': ['COOK', 'FOOD1', 'FOOD2', 'FOOD3']
-    })
+    t = loader.get_template('index.html')
+    c = Context()
     return HttpResponse(t.render(c))
 
 
 def current(request):
     return HttpResponse(json.dumps(threads.getlast()))
+
 
 def plot(request):
     response = HttpResponse(content_type='image/png')
