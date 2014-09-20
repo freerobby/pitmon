@@ -1,4 +1,5 @@
 var chart = null;
+var lastdata = null;
 
 function update_data() {
     $.getJSON(
@@ -63,6 +64,7 @@ function update_data() {
                 $("#food3_temp").html("n/a");
             }
             $("#food3_set").html(data["FOOD3_SET"]);
+            lastdata = data;
         }
     ) .fail(function() {
         $("#pitmon_status").html("OFFLINE");
@@ -74,7 +76,7 @@ function update_data() {
 
 function update_plot() {
     if (chart !== null) {
-        var data = readData();
+        data = readData();
         if (data !== null) {
             d3.select('#plot svg')
             .datum(data)
@@ -87,18 +89,18 @@ function update_plot() {
 }
 
 function create_plot() {
-  /*These lines are all chart setup.  Pick and choose which chart features you want to utilize. */
   nv.addGraph(function() {
     chart = nv.models.lineChart()
-                  .margin({left: 48})  //Adjust chart margins to give the x-axis some breathing room.
-                  .useInteractiveGuideline(true)  //We want nice looking tooltips and a guideline!
-                  .transitionDuration(350)  //how fast do you want the lines to transition?
-                  .showLegend(true)       //Show the legend, allowing users to turn on/off line series.
-                  .showYAxis(true)        //Show the y-axis
-                  .showXAxis(true)        //Show the x-axis
+                  .margin({left: 48})
+                  .useInteractiveGuideline(true)
+                  .transitionDuration(1000)
+                  .showLegend(true)
+                  .showYAxis(true)
+                  .showXAxis(true)
+                  .yDomain([0,350])
     ;
 
-    var data = readData();
+    data = readData();
 
     chart.xAxis.tickFormat(function(d) {
         return d3.time.format('%H:%M')(new Date(d))
@@ -111,7 +113,6 @@ function create_plot() {
         .datum(data)
         .call(chart);
 
-    //Update the chart when window resizes.
     nv.utils.windowResize(function() { chart.update() });
     return chart;
   });
@@ -150,41 +151,32 @@ function readData() {
             {
               values: cooktemp,
               key: "Cook Temp",
-              color: '#ff7f0e'
+              color: '#BF0020'
             },
             {
               values: cookset,
               key: "Cook Set",
-              color: '#7777ff',
+              color: '#FFC9D2',
               area: true
             },
             {
               values: output,
               key: "Output Percent",
               color: '#000000'
-            },
-            {
-              values: food1temp,
-              key: "Food1 Temp",
-              color: '#2ca02c'
-            },
-            {
-              values: food1set,
-              key: "Food1 Set",
-              color: '#2ca02c',
-              area: true
-            },
-            {
-              values: food2temp,
-              key: "Food2 Set",
-              color: '#2ca02c'
-            },
-            {
-              values: food3temp,
-              key: "Food3 Temp",
-              color: '#2ca02c'
             }
           ];
+        if (lastdata["FOOD1_STATUS"] != "NO PROBE") {
+            series.push({values: food1temp, key: "Food1 Temp", color: "#0A10BF"});
+            series.push({values: food1set, key: "Food1 Set", color: "#C9CBFF", area: true});
+        }
+        if (lastdata["FOOD2_STATUS"] != "NO PROBE") {
+            series.push({values: food2temp, key: "Food2 Temp", color: "#0ABF0D"});
+            series.push({values: food2set, key: "Food2 Set", color: "#C9FFCA", area: true});
+        }
+        if (lastdata["FOOD3_STATUS"] != "NO PROBE") {
+            series.push({values: food3temp, key: "Food3 Temp", color: "#0BBFBC"});
+            series.push({values: food3set, key: "Food3 Set", color: "#C9FFFE", area: true});
+        }
       }
   });
 
@@ -196,4 +188,3 @@ $(document).ready(function() {
   create_plot();
   setTimeout(update_plot, 15000);
 });
-

@@ -29,6 +29,8 @@ def data(request):
     y5 = []
     y6 = []
     y7 = []
+    y8 = []
+    y9 = []
     l = []
     t = []
     ts = []
@@ -50,6 +52,8 @@ def data(request):
             y5.append(reading['OUTPUT_PERCENT'])
             y6.append(reading['COOK_SET'])
             y7.append(reading['FOOD1_SET'])
+            y8.append(reading['FOOD2_SET'])
+            y9.append(reading['FOOD3_SET'])
             ts.append(reading['TIMESTAMP'])
             if idx % intvl == 0:
                 t.append(idx)
@@ -63,9 +67,9 @@ def data(request):
     data['food1_temp'] = y2;
     data['food1_set'] = y7;
     data['food2_temp'] = y3;
-    #data['food2_set'] = y1;
+    data['food2_set'] = y8;
     data['food3_temp'] = y4;
-    #data['food3_set'] = y1;
+    data['food3_set'] = y9;
     data['output_percent'] = y5;
     data['food3_temp'] = y4;
     data['timestamp'] = ts;

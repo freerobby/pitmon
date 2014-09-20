@@ -17,6 +17,7 @@ TODO:
 * Add configuration - UI for settings, and persist/load on server side
 * Historical data save/load
 * Replace django with a super basic HTTP server, once it's all static content and JSON
+* UI to Update cook related cyberq settings (setpoints, alarms)
 
 Dependencies
 ============
