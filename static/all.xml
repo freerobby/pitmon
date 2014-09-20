@@ -4,15 +4,15 @@
    <!--all temperatures sent by browser to unit should be in F.  you can send tenths F with a decimal place, ex: 123.5-->
    <COOK>
       <COOK_NAME>Cook Temp</COOK_NAME>
-      <COOK_TEMP>757</COOK_TEMP>
-      <COOK_SET>2750</COOK_SET>
+      <COOK_TEMP>2750</COOK_TEMP>
+      <COOK_SET>3250</COOK_SET>
       <COOK_STATUS>0</COOK_STATUS>
    </COOK>
    <FOOD1>
       <FOOD1_NAME>Food 1</FOOD1_NAME>
-      <FOOD1_TEMP>793</FOOD1_TEMP>
-      <FOOD1_SET>1800</FOOD1_SET>
-      <FOOD1_STATUS>1</FOOD1_STATUS>
+      <FOOD1_TEMP>1500</FOOD1_TEMP>
+      <FOOD1_SET>1600</FOOD1_SET>
+      <FOOD1_STATUS>0</FOOD1_STATUS>
    </FOOD1>
    <FOOD2>
       <FOOD2_NAME>Food 2</FOOD2_NAME>

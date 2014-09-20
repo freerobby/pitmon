@@ -51,7 +51,6 @@ function update_data() {
             } else {
                 $("#food2_temp").html("n/a");
             }
-            $("#food2_temp").html(data["FOOD2_TEMP"]);
             $("#food2_set").html(data["FOOD2_SET"]);
 
             $("#food3_name").html(data["FOOD3_NAME"]);
