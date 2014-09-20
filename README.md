@@ -1,10 +1,10 @@
 pitmon
 ======
 
-pitmon is a monitor application for the
+**pitmon** is a monitor application for the
 [BBQ Guru CyberQ WIFI controller](http://www.thebbqguru.com).
 pitmon is written in Python and Javascript using D3 to show a nice
-chart of a cook. pitmon is still being developed and not in a generally
+chart of each cook. **pitmon** is still being developed and not in a generally
 usable state.
 
 ![pitmon.png](https://raw.githubusercontent.com/scotte/pitmon/master/static/pitmon.png)
@@ -14,7 +14,6 @@ Status
 Unstable! Still very much a prototype.
 
 TODO:
-* (in progress) Switch from matplotlib on server side to D3 in browser
 * Add configuration - UI for settings, and persist/load on server side
 * Historical data save/load
 * Replace django with a super basic HTTP server, once it's all static content and JSON
@@ -22,7 +21,7 @@ TODO:
 Dependencies
 ============
 
-I develop and deploy pitmon on Debian Linux (Wheezy). It should work
+I develop and deploy pitmon on Debian Linux. It should work
 on other Debian-derived Linux distributions without any problem.
 
 Since Python is portable, this should work on other O/S as well - pull
