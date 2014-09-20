@@ -133,7 +133,9 @@ function readData() {
             food1temp = [],
             food1set = [],
             food2temp = [],
-            food3temp = [];
+            food2set = [],
+            food3temp = [],
+            food3set = [];
 
         for (var i = 0; i < data["cook_temp"].length; i++) {
             ts = data['timestamp'][i]*1000;
@@ -143,7 +145,9 @@ function readData() {
             food1temp.push({x: ts, y:data["food1_temp"][i]})
             food1set.push({x: ts, y:data["food1_set"][i]})
             food2temp.push({x: ts, y:data["food2_temp"][i]})
+            food2set.push({x: ts, y:data["food2_set"][i]})
             food3temp.push({x: ts, y:data["food3_temp"][i]})
+            food3set.push({x: ts, y:data["food3_set"][i]})
         }
 
         series = [
