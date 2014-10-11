@@ -1,1 +1,1 @@
-gunicorn --log-level=DEBUG pitmon.wsgi:application
+python server.py

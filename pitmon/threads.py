@@ -4,6 +4,7 @@ import poller
 
 pollthread = poller.Poller()
 persistthread = persist.Persist()
+persistthread.setPoller(pollthread)
 
 
 def start():

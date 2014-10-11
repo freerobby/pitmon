@@ -3,10 +3,12 @@ import time
 import json
 import os.path
 import config
-import threads
 
 
 class Persist(threading.Thread):
+
+    def setPoller(self, poller):
+        self.poller = poller
 
     def run(self):
 
@@ -23,7 +25,7 @@ class Persist(threading.Thread):
             else:
                 readings = []
 
-            reading = threads.getlast()
+            reading = self.poller.getlast()
             if (reading is None or 'COOK_TEMP' not in reading):
                 print "Warning, no valid reading from poller"
             else:

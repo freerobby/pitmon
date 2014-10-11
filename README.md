@@ -16,8 +16,8 @@ Unstable! Still very much a prototype.
 TODO:
 * Add configuration - UI for settings, and persist/load on server side
 * Historical data save/load
-* Replace django with a super basic HTTP server, once it's all static content and JSON
 * UI to Update cook related cyberq settings (setpoints, alarms)
+* Start/stop UI polling of backend
 
 Dependencies
 ============
@@ -25,16 +25,16 @@ Dependencies
 I develop and deploy pitmon on Debian Linux. It should work
 on other Debian-derived Linux distributions without any problem.
 
-Since Python is portable, this should work on other O/S as well - pull
-requests are welcome.
+Since Python is portable, this should work on other O/S as well but likely
+require some code changes in it's current state - pull requests are welcome.
 
 pitmon requires the following dependencies:
 
 * [CyberQInterface](https://github.com/thebrilliantidea/CyberQInterface)
     * Copy the 'cyberqinterface' directory (contains three .py files) to the root of this project
-* Django (python-django Debian package)
-* Gunicorn (gunicorn Debian package)
 * lxml - needed by CyberQInterface (python-lxml Debian package)
+
+Note: Django and related components are no longer required.
 
 License
 =======
