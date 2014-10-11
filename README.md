@@ -5,7 +5,8 @@ pitmon
 [BBQ Guru CyberQ WIFI controller](http://www.thebbqguru.com).
 pitmon is written in Python and Javascript using D3 to show a nice
 chart of each cook. **pitmon** is still being developed and not in a generally
-usable state.
+usable state, though I have been using it to monitor my cooks - below is a real
+screenshot from one of them.
 
 ![pitmon.png](https://raw.githubusercontent.com/scotte/pitmon/master/static/pitmon.png)
 
@@ -18,12 +19,13 @@ TODO:
 * Historical data save/load
 * UI to Update cook related cyberq settings (setpoints, alarms)
 * Start/stop UI polling of backend
+* Adjustable data point timing
 
 Dependencies
 ============
 
 I develop and deploy pitmon on Debian Linux. It should work
-on other Debian-derived Linux distributions without any problem.
+on other Linux distributions without any problem.
 
 Since Python is portable, this should work on other O/S as well but likely
 require some code changes in it's current state - pull requests are welcome.
