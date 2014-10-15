@@ -4,10 +4,12 @@ import poller
 
 pollthread = poller.Poller()
 persistthread = persist.Persist()
-persistthread.setPoller(pollthread)
 
 
-def start():
+def start(url):
+    pollthread.setUrl(url)
+    persistthread.setPoller(pollthread)
+
     # Start the poller thread, which communicates with the CyberQ
     pollthread.setDaemon(True)
     pollthread.start()

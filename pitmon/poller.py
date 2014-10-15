@@ -10,9 +10,12 @@ class Poller(threading.Thread):
 
     last = dict()
 
+    def setUrl(self, url):
+        self.url = url
+
     def run(self):
 
-        cyberq = CyberQInterface(config.url)
+        cyberq = CyberQInterface(self.url)
 
         banner = 0
         while True:

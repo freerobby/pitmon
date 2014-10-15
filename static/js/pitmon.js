@@ -189,5 +189,5 @@ function readData() {
 $(document).ready(function() {
   update_data();
   create_plot();
-  setTimeout(update_plot, 15000);
+  setTimeout(update_plot, 10000);
 });

@@ -1,12 +1,14 @@
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
+import argparse
 import json
+import os
 from pitmon import persist, poller, threads, config
 
 
 class MyHandler(BaseHTTPRequestHandler):
 
     def default(self):
-        self.serve_static("static/index.html")
+        self.serve_static("/static/index.html")
 
     def static(self):
         self.serve_static(self.path)
@@ -101,29 +103,65 @@ class MyHandler(BaseHTTPRequestHandler):
         self.default()
 
     def serve_static(self, filename):
-        resource = open("./%s" % filename)
-        self.send_response(200)
-        type = 'text/html'
-        if filename.endswith('.css'):
-            type = 'text/css'
-        if filename.endswith('.js'):
-            type = 'text/javascript'
-        self.send_header('Content-type', type)
-        self.end_headers()
-        self.wfile.write(resource.read())
-        resource.close()
+        contenttypes = {
+            # Default is text/html
+            '.js': 'text/javascript',
+            '.css': 'text/css',
+            '.ico': 'image/x-icon'
+        }
+
+        content = 'text/html'
+        for suffix in contenttypes:
+            if filename.endswith(suffix):
+                content = contenttypes[suffix]
+
+        resourcefile = ".%s" % filename
+        if os.path.isfile(resourcefile):
+            try:
+                resource = open(resourcefile)
+                self.send_response(200)
+                self.send_header('Content-type', content)
+                self.end_headers()
+                self.wfile.write(resource.read())
+                resource.close()
+            except IOError:
+                self.send_response(500)
+        else:
+            self.send_response(404)
 
 
 def main():
-    threads.start()
+    argparser = argparse.ArgumentParser()
+    argparser.add_argument('-p', '--port', dest='port', type=int, default=config.port, help='Port for HTTP server (default=%d).' % config.port)
+    argparser.add_argument('-s', '--simulate', action='store_true', default=False, help='Simulate cyberq (default=false).')
+    argparser.add_argument('cyberq', nargs='?', help='Cyberq IP address.')
+    args = argparser.parse_args()
 
+    if args.simulate is False and args.cyberq is None:
+        print 'ERROR: Either -s (--simulate) or cyberq IP address must be specified.\n'
+        argparser.print_help()
+        return
+
+    if args.simulate is True and args.cyberq is not None:
+        print 'ERROR: Both -s (--simulate) and cyberq IP address cannot be specified. Choose just one.\n'
+        argparser.print_help()
+        return
+
+    if args.simulate:
+        url = 'localhost:%d/static' % args.port
+    else:
+        url = '%s' % args.cyberq
+
+    server = HTTPServer(('', args.port), MyHandler)
     try:
-        server = HTTPServer(('', config.port), MyHandler)
-        print 'started... Listening on port', config.port
+        print 'HTTP server started... Listening on port', args.port
+        print 'Connecting to cyberq with URL %s' % url
+        threads.start(url)
         server.serve_forever()
     except KeyboardInterrupt:
-        print 'shutting down server'
+        print 'HTTP server stopped'
         server.socket.close()
 
 if __name__ == '__main__':
     main()
+
