@@ -50,7 +50,7 @@ class MyHandler(BaseHTTPRequestHandler):
         if (len(readings) < 11):
             intvl = len(readings)
         else:
-            intvl = len(readings)/10
+            intvl = len(readings) / 10
         for reading in readings:
             # ignore bad data
             if 'COOK_TEMP' in reading:
@@ -72,17 +72,17 @@ class MyHandler(BaseHTTPRequestHandler):
                 idx += 1
 
         data = dict()
-        data['cook_temp'] = y1;
-        data['cook_set'] = y6;
-        data['food1_temp'] = y2;
-        data['food1_set'] = y7;
-        data['food2_temp'] = y3;
-        data['food2_set'] = y8;
-        data['food3_temp'] = y4;
-        data['food3_set'] = y9;
-        data['output_percent'] = y5;
-        data['food3_temp'] = y4;
-        data['timestamp'] = ts;
+        data['cook_temp'] = y1
+        data['cook_set'] = y6
+        data['food1_temp'] = y2
+        data['food1_set'] = y7
+        data['food2_temp'] = y3
+        data['food2_set'] = y8
+        data['food3_temp'] = y4
+        data['food3_set'] = y9
+        data['output_percent'] = y5
+        data['food3_temp'] = y4
+        data['timestamp'] = ts
         self.wfile.write(json.dumps(data))
 
     def do_GET(self):
@@ -164,4 +164,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

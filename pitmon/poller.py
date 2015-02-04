@@ -38,7 +38,7 @@ class Poller(threading.Thread):
                         reading[key] = 0.0
                         reading['%s_STATUS' % probe] = 'NO PROBE'
                     else:
-                        reading[key] = int(result[probe][key])/10
+                        reading[key] = int(result[probe][key]) / 10
                 key = '%s_STATUS' % probe
                 if key not in reading:
                     reading[key] = cyberq.statusLookup(result[probe][key])

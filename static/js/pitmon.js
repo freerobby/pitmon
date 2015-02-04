@@ -102,7 +102,7 @@ function create_plot() {
     data = readData();
 
     chart.xAxis.tickFormat(function(d) {
-        return d3.time.format('%H:%M')(new Date(d))
+        return d3.time.format('%H:%M')(new Date(d));
     });
 
     chart.yAxis
@@ -112,7 +112,7 @@ function create_plot() {
         .datum(data)
         .call(chart);
 
-    nv.utils.windowResize(function() { chart.update() });
+    nv.utils.windowResize(function() { chart.update(); });
     return chart;
   });
 }
