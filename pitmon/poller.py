@@ -1,7 +1,7 @@
 import threading
 import time
 import copy
-from cyberqinterface.cyberqinterface import CyberQInterface
+from cyberqinterface import CyberQInterface
 import config
 
 
