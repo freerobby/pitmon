@@ -4,15 +4,15 @@ pitmon
 **pitmon** is a monitor application for the
 [BBQ Guru CyberQ WIFI controller](http://www.thebbqguru.com).
 pitmon is written in Python and Javascript using D3 to show a nice
-chart of each cook. **pitmon** is still being developed and not in a generally
-usable state, though I have been using it to monitor my cooks - below is a real
-screenshot from one of them.
+chart of each cook. **pitmon** is still being developed, so please don't rely on
+it yet for critical information. However, I have been using it to monitor my
+cooks - below is a real screenshot from one of them.
 
 ![pitmon.png](https://raw.githubusercontent.com/scotte/pitmon/master/static/pitmon.png)
 
 Status
 ======
-Unstable! Still very much a prototype.
+Still very much a prototype.
 
 TODO:
 * Add configuration - UI for settings, and persist/load on server side
@@ -37,6 +37,21 @@ pitmon requires the following dependencies:
 * lxml - needed by CyberQInterface (python-lxml Debian package)
 
 Note: Django and related components are no longer required.
+
+Usage
+=====
+
+```
+server.py [-h] [-p PORT] [-s] [cyberq]
+
+positional arguments:
+  cyberq                Cyberq IP address.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -p PORT, --port PORT  Port for HTTP server (default=8000).
+  -s, --simulate        Simulate cyberq (default=false).
+```
 
 License
 =======
